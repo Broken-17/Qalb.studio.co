@@ -1,0 +1,24 @@
+{
+  "name": "Qalb Heavy Hoodie",
+  "price": 1899,
+  "category": "Hoodies",
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "colors": [
+    "Charcoal"
+  ],
+  "description": "Charcoal hoodie, shown here as sold out to demonstrate that state. This is a sample listing.",
+  "details": [
+    "SAMPLE: replace this with the real fabric and fit details",
+    "SAMPLE: replace this with real care instructions"
+  ],
+  "tags": [],
+  "inStock": false,
+  "order": 6,
+  "sample": true
+}

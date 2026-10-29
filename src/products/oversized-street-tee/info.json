@@ -1,0 +1,26 @@
+{
+  "name": "Oversized Street Tee",
+  "price": 1199,
+  "category": "Oversized Tees",
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "colors": [
+    "Charcoal"
+  ],
+  "description": "Relaxed, drop-shoulder fit built for the street. This is a sample listing.",
+  "details": [
+    "SAMPLE: replace this with the real fabric and fit details",
+    "SAMPLE: replace this with real care instructions"
+  ],
+  "tags": [
+    "new"
+  ],
+  "inStock": true,
+  "order": 3,
+  "sample": true
+}
