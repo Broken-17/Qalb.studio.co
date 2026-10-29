@@ -4,6 +4,6 @@ import react from '@vitejs/plugin-react';
 // base './' + HashRouter = works on github.io/<repo>/ AND on a custom domain, with no changes.
 export default defineConfig({
   plugins: [react()],
-  base: './Qalb.studio.co/',
+  base: '/Qalb.studio.co/',
   build: { assetsInlineLimit: 0 },
 });
