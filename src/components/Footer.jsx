@@ -72,10 +72,7 @@ export default function Footer() {
 
       <div className="container foot-bottom">
         <p>&copy; {new Date().getFullYear()} {site.name}. {t('ft.rights')}</p>
-        <p className="serif">{t('ft.means', { ar: site.arabic })}</p>
-      </div>
-
-      <div className="container credit-row">
+        <div className="container credit-row">
         <p className="credit" dir="ltr">
           <span className="credit-by"><Heart size={14} /> {t('ft.built')} <strong>Aszar</strong></span>
           <i>|</i>
@@ -85,6 +82,8 @@ export default function Footer() {
             <InstagramIcon size={15} /> _the.broken_17
           </a>
         </p>
+      </div>
+        <p className="serif">{t('ft.means', { ar: site.arabic })}</p>
       </div>
     </footer>
   );
