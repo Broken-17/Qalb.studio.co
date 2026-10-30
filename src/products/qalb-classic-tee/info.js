@@ -1,0 +1,14 @@
+export default {
+  name: "Qalb Classic Tee",
+  price: 899,
+  mrp: 1199,
+  category: "T-Shirts",
+  sizes: ["S", "M", "L", "XL", "XXL"],
+  colors: ["Black"],
+  description: "A clean, everyday tee with a quiet Qalb print on the chest. This is a sample listing.",
+  details: ["SAMPLE: replace this with the real fabric and fit details", "SAMPLE: replace this with real care instructions"],
+  tags: ["new"],
+  inStock: true,
+  order: 1,
+  sample: true,
+};
