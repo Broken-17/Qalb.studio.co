@@ -21,8 +21,8 @@ export const site = {
   logo: '',
 
   // ----- CONTACT -----
-  whatsapp: '916304726010',          // country code + number, digits only
-  phone: '+91 63047 26010',          // shown on the website
+  whatsapp: '918519956010',          // country code + number, digits only
+  phone: '+91 8519956010',          // shown on the website
   email: 'support@qalbstudio.co',    // customer queries land here
   instagram: 'qalb.studio.co',       // handle only, no @
   address: '',                       // optional
@@ -31,7 +31,7 @@ export const site = {
   // Contact-form delivery to your inbox, via Web3Forms (free, no server).
   // 1) Go to https://web3forms.com  2) enter support@qalbstudio.co  3) paste the access key below.
   // (The key is meant to be public; it only lets the form send mail to YOUR address.)
-  web3formsKey: '',
+  web3formsKey: 'support@qalbstudio.co',
 
   // First line of every WhatsApp order message.
   greeting: 'Assalamu alaikum',
