@@ -72,17 +72,17 @@ export default function Footer() {
 
       <div className="container foot-bottom">
         <p>&copy; {new Date().getFullYear()} {site.name}. {t('ft.rights')}</p>
-        <div className="container credit-row">
-        <p className="credit" dir="ltr">
-          <span className="credit-by"><Heart size={14} /> {t('ft.built')} <strong>Aszar</strong></span>
-          <i>|</i>
-          <a href="tel:7660973723" data-tip="Call 7660973723"><Phone size={14} /> 7660973723</a>
-          <i>|</i>
-          <a href="https://www.instagram.com/_the.broken_17" target="_blank" rel="noopener noreferrer" data-tip="@_the.broken_17 on Instagram" aria-label="Instagram @_the.broken_17">
-            <InstagramIcon size={15} /> _the.broken_17
-          </a>
-        </p>
-      </div>
+        <div className="credit-row">
+          <p className="credit" dir="ltr">
+            <span className="credit-by"><Heart size={14} /> {t('ft.built')} <strong>Aszar</strong></span>
+            <i>|</i>
+            <a href="tel:7660973723" data-tip="Call 7660973723"><Phone size={14} /> 7660973723</a>
+            <i>|</i>
+            <a href="https://www.instagram.com/_the.broken_17" target="_blank" rel="noopener noreferrer" data-tip="@_the.broken_17 on Instagram" aria-label="Instagram @_the.broken_17">
+              <InstagramIcon size={15} /> _the.broken_17
+            </a>
+          </p>
+        </div>
         <p className="serif">{t('ft.means', { ar: site.arabic })}</p>
       </div>
     </footer>
