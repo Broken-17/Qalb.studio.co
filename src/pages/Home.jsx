@@ -1,27 +1,21 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BadgeCheck, HandHeart, Shirt, Sparkles } from 'lucide-react';
+import { ArrowRight, BadgeCheck, HandHeart, MapPin, MessageCircle, Shirt, ShoppingBag, Sparkles, Wallet } from 'lucide-react';
 import Waves from '../components/Waves';
 import ProductCard from '../components/ProductCard';
-import { Countdown } from '../components/Extras';
-import { InstagramIcon, WhatsAppIcon } from '../components/Icons';
+import { InstagramIcon } from '../components/Icons';
 import { site } from '../config/site';
+import { useI18n } from '../i18n';
 import { categories, products } from '../lib/catalog';
-import { waLink } from '../lib/whatsapp';
 import { useTitle } from '../hooks/hooks';
 
-const base = import.meta.env.BASE_URL;
-
-const values = [
-  { Icon: BadgeCheck, title: 'Honest pricing', text: 'Great-quality clothing at affordable prices, with honest pricing in every order.' },
-  { Icon: Shirt, title: 'Made for today’s youth', text: 'Clothing inspired by our identity and the culture we’re part of.' },
-  { Icon: HandHeart, title: 'Care in every order', text: 'Honest service and quality you can trust, from the first message to your door.' },
-  { Icon: Sparkles, title: 'Faith meets street', text: 'Modern street style that truly represents Muslim youth.' },
-];
+const valueIcons = [BadgeCheck, Shirt, HandHeart, Sparkles];
+const howIcons = [ShoppingBag, MapPin, MessageCircle, Wallet];
 
 export default function Home() {
+  const { t, cat } = useI18n();
   useTitle('');
   const featured = products.slice(0, 8);
-  const marquee = [site.tagline, site.name, 'Faith', 'Street', 'Style', site.short + ' means heart'];
+  const marquee = [t('marq.0'), site.tagline, site.name, t('marq.1'), t('marq.2'), t('marq.3'), t('marq.4')];
 
   return (
     <>
@@ -32,12 +26,12 @@ export default function Home() {
         <div className="container hero-in">
           <p className="kicker reveal up">{site.tagline}</p>
           <h1 className="reveal up" style={{ '--d': '.08s' }}>
-            Where faith<br />meets <span>street style.</span>
+            {t('hero.l1')}<br />{t('hero.l2')} <span>{t('hero.em')}</span>
           </h1>
           <p className="hero-sub reveal up" style={{ '--d': '.16s' }}>{site.intro}</p>
           <div className="hero-cta reveal up" style={{ '--d': '.24s' }}>
-            <Link to="/shop" className="btn btn-light">Shop the collection <ArrowRight size={18} /></Link>
-            <Link to="/about" className="btn btn-ghost">Our story</Link>
+            <Link to="/shop" className="btn btn-light">{t('hero.shop')} <ArrowRight size={18} className="flip-rtl" /></Link>
+            <Link to="/about" className="btn btn-ghost">{t('hero.story')}</Link>
           </div>
         </div>
       </section>
@@ -45,7 +39,7 @@ export default function Home() {
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[...marquee, ...marquee, ...marquee, ...marquee].map((m, i) => (
-            <span key={i}>{m}<i>{'✦'}</i></span>
+            <span key={i} className={i % marquee.length === 0 ? 'slogan' : ''}>{m}<i>{'✦'}</i></span>
           ))}
         </div>
       </div>
@@ -56,10 +50,10 @@ export default function Home() {
           <div className="container">
             <div className="sec-head reveal up">
               <div>
-                <p className="eyebrow">The collection</p>
-                <h2>Fresh pieces</h2>
+                <p className="eyebrow">{t('home.collection')}</p>
+                <h2>{t('home.fresh')}</h2>
               </div>
-              <Link to="/shop" className="link-arrow">View all <ArrowRight size={16} /></Link>
+              <Link to="/shop" className="link-arrow">{t('home.viewAll')} <ArrowRight size={16} className="flip-rtl" /></Link>
             </div>
             <div className="pgrid">
               {featured.map((p, i) => <ProductCard key={p.slug} p={p} i={i} />)}
@@ -74,8 +68,8 @@ export default function Home() {
           <div className="container">
             <div className="sec-head reveal up">
               <div>
-                <p className="eyebrow">Browse</p>
-                <h2>Shop by style</h2>
+                <p className="eyebrow">{t('home.browse')}</p>
+                <h2>{t('home.byStyle')}</h2>
               </div>
             </div>
             <div className="cat-grid">
@@ -85,8 +79,8 @@ export default function Home() {
                   <Link key={c} to={`/shop?category=${encodeURIComponent(c)}`} className="cat reveal up" style={{ '--d': `${i * 0.06}s` }}>
                     <img src={list[0].images[0]} alt="" loading="lazy" />
                     <span className="cat-label">
-                      <strong>{c}</strong>
-                      <small>{list.length} {list.length === 1 ? 'piece' : 'pieces'}</small>
+                      <strong>{cat(c)}</strong>
+                      <small>{t(list.length === 1 ? 'piece' : 'pieces', { n: list.length })}</small>
                     </span>
                   </Link>
                 );
@@ -96,21 +90,43 @@ export default function Home() {
         </section>
       )}
 
+      {/* HOW ORDERING WORKS */}
+      <section className="section how">
+        <div className="container">
+          <div className="sec-head reveal up">
+            <div>
+              <p className="eyebrow">{t('home.how')}</p>
+              <h2>{t('home.howTitle')}</h2>
+            </div>
+          </div>
+          <div className="how-grid">
+            {howIcons.map((Icon, i) => (
+              <div className="how-step reveal up" style={{ '--d': `${i * 0.08}s` }} key={i}>
+                <span className="how-no">{i + 1}</span>
+                <Icon size={28} strokeWidth={1.4} />
+                <h3>{t(`how.${i + 1}t`)}</h3>
+                <p>{t(`how.${i + 1}d`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* VALUES */}
       <section className="section values">
         <div className="container">
           <div className="sec-head reveal up">
             <div>
-              <p className="eyebrow">What we stand for</p>
-              <h2>Your trust matters to us</h2>
+              <p className="eyebrow">{t('home.stand')}</p>
+              <h2>{t('home.trust')}</h2>
             </div>
           </div>
           <div className="val-grid">
-            {values.map(({ Icon, title, text }, i) => (
-              <div className="val reveal up" style={{ '--d': `${i * 0.07}s` }} key={title}>
+            {valueIcons.map((Icon, i) => (
+              <div className="val reveal up" style={{ '--d': `${i * 0.07}s` }} key={i}>
                 <Icon size={30} strokeWidth={1.4} />
-                <h3>{title}</h3>
-                <p>{text}</p>
+                <h3>{t(`val.${i + 1}t`)}</h3>
+                <p>{t(`val.${i + 1}d`)}</p>
               </div>
             ))}
           </div>
@@ -122,12 +138,26 @@ export default function Home() {
         <Waves className="flip" />
         <div className="container center reveal up">
           <p className="serif big">
-            {site.short} (<span lang="ar">{site.arabic}</span>) means <em>heart.</em>
+            {site.short} (<span lang="ar">{site.arabic}</span>) {t('home.heart')} <em>{t('home.heartEm')}</em>
           </p>
-          <p className="quote-sub">More than a name. It’s a feeling we hope you’ll carry in your heart.</p>
-          <Link to="/about" className="btn btn-ghost">Read our story</Link>
+          <p className="quote-sub">{t('home.heartSub')}</p>
+          <Link to="/about" className="btn btn-ghost">{t('home.readStory')}</Link>
         </div>
       </section>
+
+      {/* INSTAGRAM */}
+      {site.instagram && (
+        <section className="section ig-band">
+          <div className="container center reveal up">
+            <InstagramIcon size={34} />
+            <h2>{t('home.igTitle')}</h2>
+            <p className="muted">{t('home.igText')}</p>
+            <a className="btn btn-light" href={`https://www.instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer">
+              <InstagramIcon size={18} /> {t('home.igBtn')} · @{site.instagram}
+            </a>
+          </div>
+        </section>
+      )}
     </>
   );
 }

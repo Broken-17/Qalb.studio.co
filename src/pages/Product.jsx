@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Minus, Plus, Share2, ShoppingBag, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Minus, Plus, RotateCcw, Share2, ShoppingBag, Truck, X, MessageCircle } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { WhatsAppIcon } from '../components/Icons';
 import { useCart } from '../context/CartContext';
-import { hasHelp, help } from '../data/help';
+import { store } from '../config/store';
+import { useI18n } from '../i18n';
 import { getProduct, products } from '../lib/catalog';
 import { money, percentOff } from '../lib/format';
 import { quickBuyMessage, waLink, productUrl } from '../lib/whatsapp';
@@ -13,7 +14,9 @@ import NotFound from './NotFound';
 
 export default function Product() {
   const { slug } = useParams();
-  const p = getProduct(slug);
+  const { t, loc, cat, lang } = useI18n();
+  const raw = getProduct(slug);
+  const p = raw ? loc(raw) : null;
   const { add, notify } = useCart();
   const [idx, setIdx] = useState(0);
   const [size, setSize] = useState('');
@@ -58,7 +61,7 @@ export default function Product() {
   const addToBag = () => guard() && add(p.slug, size, qty);
   const buyNow = () => {
     if (!guard()) return;
-    window.open(waLink(quickBuyMessage(p, size, qty)), '_blank', 'noopener');
+    window.open(waLink(quickBuyMessage(p, size, qty, lang)), '_blank', 'noopener');
   };
   const share = async () => {
     const url = productUrl(p.slug);
@@ -66,107 +69,118 @@ export default function Product() {
       if (navigator.share) await navigator.share({ title: p.name, url });
       else {
         await navigator.clipboard.writeText(url);
-        notify('Link copied');
+        notify(t('pdp.copied'));
       }
     } catch {
       /* cancelled */
     }
   };
   const related = products.filter((x) => x.slug !== p.slug && x.category === p.category).slice(0, 4);
+  const lbl = (i) => {
+    const k = raw.imageLabels[i];
+    return k ? t(`img.${k}`) : t('img.photo', { n: i + 1 });
+  };
   const go = (d) => setIdx((i) => (i + d + p.images.length) % p.images.length);
 
   return (
     <section className="section page-top">
       <div className="container">
         <nav className="crumbs" aria-label="Breadcrumb">
-          <Link to="/">Home</Link> / <Link to="/shop">Shop</Link> / <Link to={`/shop?category=${encodeURIComponent(p.category)}`}>{p.category}</Link>
+          <Link to="/">{t('pdp.crumbHome')}</Link> / <Link to="/shop">{t('nav.shop')}</Link> / <Link to={`/shop?category=${encodeURIComponent(p.category)}`}>{cat(p.category)}</Link>
         </nav>
 
         <div className="pdp">
           <div className="gallery">
             <div className="thumbs" role="tablist" aria-label="Product photos">
               {p.images.map((src, i) => (
-                <button key={src} className={i === idx ? 'on' : ''} onClick={() => setIdx(i)} aria-label={`Photo ${i + 1}`} role="tab" aria-selected={i === idx}>
+                <button key={src} className={i === idx ? 'on' : ''} onClick={() => setIdx(i)} aria-label={lbl(i)} data-tip={lbl(i)} role="tab" aria-selected={i === idx}>
                   <img src={src} alt="" loading="lazy" />
+                  <small>{lbl(i)}</small>
                 </button>
               ))}
             </div>
             <div className="stage">
-              <button className="stage-img" onClick={() => setZoom(true)} aria-label="Enlarge photo">
-                <img src={p.images[idx]} alt={`${p.name}, photo ${idx + 1}`} />
+              <button className="stage-img" onClick={() => setZoom(true)} aria-label={t('tip.zoom')} data-tip={t('tip.zoom')}>
+                <img src={p.images[idx]} alt={`${p.name}, ${lbl(idx)}`} />
               </button>
               {p.images.length > 1 && (
                 <>
-                  <button className="st-btn l" onClick={() => go(-1)} aria-label="Previous photo"><ChevronLeft size={22} /></button>
-                  <button className="st-btn r" onClick={() => go(1)} aria-label="Next photo"><ChevronRight size={22} /></button>
+                  <button className="st-btn l" onClick={() => go(-1)} aria-label={t('tip.prev')} data-tip={t('tip.prev')}><ChevronLeft size={22} /></button>
+                  <button className="st-btn r" onClick={() => go(1)} aria-label={t('tip.next')} data-tip={t('tip.next')}><ChevronRight size={22} /></button>
                 </>
               )}
-              {p.sample && <span className="pb sample stage-tag">Sample image</span>}
+              {p.sample && <span className="pb sample stage-tag">{t('pdp.sampleImg')}</span>}
             </div>
           </div>
 
           <div className="buy">
-            <p className="eyebrow">{p.category}</p>
+            <p className="eyebrow">{cat(p.category)}</p>
             <h1>{p.name}</h1>
             <p className="bigprice">
-              {money(p.price) ? <strong>{money(p.price)}</strong> : <em>Ask for price</em>}
+              {money(p.price) ? <strong>{money(p.price)}</strong> : <em>{t('card.ask')}</em>}
               {off > 0 && (
                 <>
                   <s>{money(p.mrp)}</s>
-                  <span className="pb ember">{off}% off</span>
+                  <span className="pb ember">{t('card.off', { n: off })}</span>
                 </>
               )}
             </p>
-            {p.price !== null && <p className="muted small">Inclusive of taxes. Shipping and payment are confirmed on WhatsApp.</p>}
+            {p.price !== null && <p className="muted small">{t('pdp.tax')}</p>}
 
             {p.description && <p className="desc">{p.description}</p>}
 
             {p.colors.length > 0 && (
-              <p className="colors"><span>Colour</span> {p.colors.join(', ')}</p>
+              <p className="colors"><span>{t('pdp.colour')}</span> {p.colors.join(', ')}</p>
             )}
 
             {needs && (
               <div className={`sizes${needSize ? ' warn' : ''}`}>
                 <div className="sizes-head">
-                  <span>Size</span>
-                  {hasHelp && help.sizeGuide.rows.length > 0 && <Link to="/help#size-guide">Size guide</Link>}
+                  <span>{t('pdp.size')}</span>
+                  <Link to="/size-guide">{t('pdp.sizeGuide')}</Link>
                 </div>
-                <div className="size-row" role="radiogroup" aria-label="Size">
+                <div className="size-row" role="radiogroup" aria-label={t('pdp.size')}>
                   {p.sizes.map((s) => (
                     <button key={s} role="radio" aria-checked={size === s} className={size === s ? 'on' : ''} onClick={() => { setSize(s); setNeedSize(false); }}>{s}</button>
                   ))}
                 </div>
-                {needSize && <p className="warn-msg">Please choose a size.</p>}
+                {needSize && <p className="warn-msg">{t('pdp.chooseSize')}</p>}
               </div>
             )}
 
             <div className="qty-row">
-              <span>Quantity</span>
+              <span>{t('pdp.qty')}</span>
               <div className="qty">
-                <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease"><Minus size={16} /></button>
+                <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label={t('tip.minus')} data-tip={t('tip.minus')}><Minus size={16} /></button>
                 <output>{qty}</output>
-                <button onClick={() => setQty((q) => Math.min(20, q + 1))} aria-label="Increase"><Plus size={16} /></button>
+                <button onClick={() => setQty((q) => Math.min(store.maxPerItem, q + 1))} aria-label={t('tip.plus')} data-tip={t('tip.plus')}><Plus size={16} /></button>
               </div>
             </div>
 
             {p.inStock ? (
               <div className="buy-btns">
-                <button className="btn btn-light" onClick={addToBag}><ShoppingBag size={18} /> Add to bag</button>
-                <button className="btn btn-wa" onClick={buyNow}><WhatsAppIcon size={18} /> Order on WhatsApp</button>
+                <button className="btn btn-light" onClick={addToBag}><ShoppingBag size={18} /> {t('pdp.add')}</button>
+                <button className="btn btn-wa" onClick={buyNow}><WhatsAppIcon size={18} /> {t('pdp.wa')}</button>
               </div>
             ) : (
               <div className="buy-btns">
                 <a className="btn btn-wa" href={waLink(`Hi! Please let me know when "${p.name}" is back in stock.\n${productUrl(p.slug)}`)} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon size={18} /> Notify me when back
+                  <WhatsAppIcon size={18} /> {t('pdp.notify')}
                 </a>
               </div>
             )}
 
-            <button className="share" onClick={share}><Share2 size={16} /> Share this piece</button>
+            <ul className="perks">
+              <li><Truck size={18} /> {t('pdp.perk1')}</li>
+              <li><RotateCcw size={18} /> {t('pdp.perk2', { n: store.returnDays })}</li>
+              <li><MessageCircle size={18} /> {t('pdp.perk3')}</li>
+            </ul>
+
+            <button className="share" data-tip={t('tip.share')} onClick={share}><Share2 size={16} /> {t('pdp.share')}</button>
 
             {p.details.length > 0 && (
               <div className="details">
-                <h2>Details</h2>
+                <h2>{t('pdp.details')}</h2>
                 <ul>{p.details.map((d) => <li key={d}>{d}</li>)}</ul>
               </div>
             )}
@@ -175,18 +189,18 @@ export default function Product() {
 
         {related.length > 0 && (
           <div className="related">
-            <div className="sec-head"><div><p className="eyebrow">You may also like</p><h2>More {p.category}</h2></div></div>
+            <div className="sec-head"><div><p className="eyebrow">{t('pdp.like')}</p><h2>{t('pdp.more', { c: cat(p.category) })}</h2></div></div>
             <div className="pgrid">{related.map((r, i) => <ProductCard key={r.slug} p={r} i={i} />)}</div>
           </div>
         )}
       </div>
 
       {zoom && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={() => setZoom(false)}>
-          <button className="lb-close" aria-label="Close" onClick={() => setZoom(false)}><X size={26} /></button>
-          {p.images.length > 1 && <button className="st-btn l" onClick={(e) => { e.stopPropagation(); go(-1); }} aria-label="Previous"><ChevronLeft size={26} /></button>}
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label={t('tip.zoom')} onClick={() => setZoom(false)}>
+          <button className="lb-close" aria-label={t('tip.close')} data-tip={t('tip.close')} onClick={() => setZoom(false)}><X size={26} /></button>
+          {p.images.length > 1 && <button className="st-btn l" onClick={(e) => { e.stopPropagation(); go(-1); }} aria-label={t('tip.prev')}><ChevronLeft size={26} /></button>}
           <img src={p.images[idx]} alt={p.name} onClick={(e) => e.stopPropagation()} />
-          {p.images.length > 1 && <button className="st-btn r" onClick={(e) => { e.stopPropagation(); go(1); }} aria-label="Next"><ChevronRight size={26} /></button>}
+          {p.images.length > 1 && <button className="st-btn r" onClick={(e) => { e.stopPropagation(); go(1); }} aria-label={t('tip.next')}><ChevronRight size={26} /></button>}
         </div>
       )}
     </section>

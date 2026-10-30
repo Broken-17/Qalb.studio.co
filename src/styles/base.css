@@ -94,8 +94,3 @@ h3 { font-family: var(--sans); font-weight: 700; font-size: 1rem; }
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
-
-/* Ambient motion and accessible, restrained hover feedback */
-body::after { content:''; position:fixed; inset:-20%; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 15% 15%,rgba(217,160,102,.075),transparent 35%),radial-gradient(ellipse at 85% 75%,rgba(244,237,225,.035),transparent 32%); animation:ambient-drift 22s ease-in-out infinite alternate; }
-@keyframes ambient-drift { from { transform:translate3d(-1%,0,0) scale(1); } to { transform:translate3d(1%,1.5%,0) scale(1.04); } }
-button[title], a[title] { cursor:pointer; }

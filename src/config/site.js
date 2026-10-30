@@ -1,3 +1,5 @@
+import { store as store0 } from './store';
+
 /* ==========================================================================
    STORE SETTINGS. Change everything about the shop's identity HERE.
    Anything left as '' is simply hidden on the website (nothing fake is shown).
@@ -11,34 +13,36 @@ export const site = {
   intro:
     'Qalb Studio is an Indian Muslim streetwear brand bringing faith and modern street style together.',
 
-  // Thin bar at the very top of every page. Set to '' to hide.
+  // Thin bar at the very top of every page, e.g. 'Free size exchange within 7 days'. '' hides it.
   announcement: '',
 
   // Put your real logo in /public/brand/ and write its path here, e.g. 'brand/logo.png'.
   // Leave '' to use the built-in QALB wordmark.
   logo: '',
 
-  // ----- CONTACT (fill these in) -----
-  whatsapp: '916304726010',   // country code + number, digits only. Example: 919876543210
-  email: 'support@qalbstudio.co',      // the inbox that should receive customer queries
-  instagram: 'qalb.studio.co',  // handle only, without @. Example: qalbstudio
-  phone: '',      // optional, shown on the Contact page
-  address: '',    // optional
-  hours: '',      // optional. Example: 'Mon - Sat, 10 AM - 7 PM'
+  // ----- CONTACT -----
+  whatsapp: '916304726010',          // country code + number, digits only
+  phone: '+91 63047 26010',          // shown on the website
+  email: 'support@qalbstudio.co',    // customer queries land here
+  instagram: 'qalb.studio.co',       // handle only, no @
+  address: '',                       // optional
+  hours: '',                         // optional. Example: 'Mon - Sat, 10 AM - 7 PM'
+
+  // Contact-form delivery to your inbox, via Web3Forms (free, no server).
+  // 1) Go to https://web3forms.com  2) enter support@qalbstudio.co  3) paste the access key below.
+  // (The key is meant to be public; it only lets the form send mail to YOUR address.)
+  web3formsKey: '',
 
   // First line of every WhatsApp order message.
   greeting: 'Assalamu alaikum',
 
-  // ----- LAUNCH MODE -----
-  // enabled: true shows the "Launching soon" banner on the home page.
-  // date: optional. Example '2026-12-01T10:00:00+05:30' starts a live countdown.
-  launch: { enabled: false, date: '' },
+  // Legal contact shown in the policies (Indian e-commerce rules ask for a grievance contact).
+  grievanceName: '',   // e.g. 'Your Name, Founder'
 };
 
 // Shown only while you run `npm run dev`, to remind you what is still empty.
 export const missingSetup = () =>
   [
-    !site.whatsapp && 'site.whatsapp',
-    !site.email && 'site.email',
-    !import.meta.env.VITE_FORM_ENDPOINT && 'VITE_FORM_ENDPOINT (.env)',
+    !site.web3formsKey && !import.meta.env.VITE_FORM_ACCESS_KEY && 'site.web3formsKey (contact form falls back to the email app)',
+    store0.cod.advance === null && 'store.cod.advance',
   ].filter(Boolean);

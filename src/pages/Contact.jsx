@@ -2,16 +2,20 @@ import { useState } from 'react';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { InstagramIcon, WhatsAppIcon } from '../components/Icons';
 import { site } from '../config/site';
+import { LANGS, useI18n } from '../i18n';
 import { sendEnquiry } from '../lib/enquiry';
 import { waLink } from '../lib/whatsapp';
 import { useTitle } from '../hooks/hooks';
 
-const topics = ['Order enquiry', 'Product question', 'Sizing help', 'Bulk / custom order', 'Something else'];
-const empty = { name: '', phone: '', email: '', topic: topics[0], message: '', botcheck: '' };
+// the topic sent to your inbox is always English; only the label the customer sees is translated
+const TOPICS = ['Order enquiry', 'Product question', 'Sizing help', 'Bulk / custom order', 'Something else'];
+const LANG_NAME = { en: 'English', hi: 'Hindi', ur: 'Urdu' };
 
 export default function Contact() {
-  useTitle('Contact');
-  const [form, setForm] = useState(empty);
+  const { t, lang } = useI18n();
+  useTitle(t('contact.eyebrow'));
+  const blank = { name: '', phone: '', email: '', topic: TOPICS[0], reply: lang, message: '', botcheck: '' };
+  const [form, setForm] = useState(blank);
   const [state, setState] = useState({ s: 'idle', msg: '' });
   const set = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -19,23 +23,17 @@ export default function Contact() {
     e.preventDefault();
     if (form.botcheck) return; // spam trap
     if (form.phone && !/^[0-9+\s-]{8,15}$/.test(form.phone.trim())) {
-      setState({ s: 'error', msg: 'Please enter a valid phone number.' });
+      setState({ s: 'error', msg: t('f.badPhone') });
       return;
     }
     setState({ s: 'sending', msg: '' });
     try {
-      const { botcheck, ...data } = form;
-      const mode = await sendEnquiry(data);
-      setState({
-        s: 'ok',
-        msg:
-          mode === 'sent'
-            ? 'Thank you! Your message has been sent. We will get back to you soon.'
-            : 'Your email app should open with the message ready. Press Send there to finish.',
-      });
-      if (mode === 'sent') setForm(empty);
+      const { botcheck, reply, ...data } = form;
+      const mode = await sendEnquiry({ ...data, preferred_reply_language: LANG_NAME[reply] });
+      setState({ s: 'ok', msg: mode === 'sent' ? t('f.sent') : t('f.mailto') });
+      if (mode === 'sent') setForm(blank);
     } catch {
-      setState({ s: 'error', msg: 'Something went wrong. Please message us on WhatsApp instead.' });
+      setState({ s: 'error', msg: t('f.fail') });
     }
   };
 
@@ -43,28 +41,32 @@ export default function Contact() {
     <section className="section page-top">
       <div className="container">
         <header className="page-head">
-          <p className="eyebrow">Contact</p>
-          <h1>We&rsquo;d love to hear from you.</h1>
-          <p className="muted">Questions about an order, a size or a product? Send us a message and we&rsquo;ll reply.</p>
+          <p className="eyebrow">{t('contact.eyebrow')}</p>
+          <h1>{t('contact.title')}</h1>
+          <p className="muted">{t('contact.sub')}</p>
         </header>
 
         <div className="contact-grid">
           <form className="form" onSubmit={submit}>
             <input className="hp" name="botcheck" value={form.botcheck} onChange={set} tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div className="row">
-              <label><span>Your name *</span><input name="name" value={form.name} onChange={set} required autoComplete="name" /></label>
-              <label><span>Phone / WhatsApp</span><input name="phone" value={form.phone} onChange={set} inputMode="tel" autoComplete="tel" /></label>
+              <label><span>{t('f.name')}</span><input name="name" value={form.name} onChange={set} required autoComplete="name" /></label>
+              <label><span>{t('f.phone')}</span><input name="phone" value={form.phone} onChange={set} inputMode="tel" autoComplete="tel" dir="ltr" /></label>
             </div>
             <div className="row">
-              <label><span>Email *</span><input type="email" name="email" value={form.email} onChange={set} required autoComplete="email" /></label>
+              <label><span>{t('f.email')}</span><input type="email" name="email" value={form.email} onChange={set} required autoComplete="email" dir="ltr" /></label>
               <label>
-                <span>Topic</span>
-                <select name="topic" value={form.topic} onChange={set}>{topics.map((t) => <option key={t}>{t}</option>)}</select>
+                <span>{t('f.topic')}</span>
+                <select name="topic" value={form.topic} onChange={set}>{TOPICS.map((x, i) => <option key={x} value={x}>{t(`topic.${i + 1}`)}</option>)}</select>
               </label>
             </div>
-            <label><span>Message *</span><textarea name="message" rows={6} value={form.message} onChange={set} required placeholder="Tell us how we can help..." /></label>
+            <label>
+              <span>{t('f.replyLang')}</span>
+              <select name="reply" value={form.reply} onChange={set}>{LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}</select>
+            </label>
+            <label><span>{t('f.message')}</span><textarea name="message" rows={6} value={form.message} onChange={set} required placeholder={t('f.messagePh')} /></label>
             <button className="btn btn-light" type="submit" disabled={state.s === 'sending'}>
-              {state.s === 'sending' ? 'Sending...' : 'Send message'}
+              {state.s === 'sending' ? t('f.sending') : t('f.send')}
             </button>
             {state.msg && <p className={`status ${state.s}`} role="status" aria-live="polite">{state.msg}</p>}
           </form>
@@ -72,29 +74,25 @@ export default function Contact() {
           <aside className="contact-side">
             <a className="c-tile wa" href={waLink('Hi! I have a question.')} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon size={22} />
-              <span><small>Fastest reply</small><strong>Chat on WhatsApp</strong></span>
+              <span><small>{t('c.fastest')}</small><strong>{t('c.chat')}</strong></span>
             </a>
             {site.email && (
               <a className="c-tile" href={`mailto:${site.email}`}>
-                <Mail size={22} /><span><small>Email</small><strong>{site.email}</strong></span>
+                <Mail size={22} /><span><small>{t('c.email')}</small><strong>{site.email}</strong></span>
               </a>
             )}
             {site.instagram && (
               <a className="c-tile" href={`https://www.instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer">
-                <InstagramIcon size={22} /><span><small>Instagram</small><strong>@{site.instagram}</strong></span>
+                <InstagramIcon size={22} /><span><small>{t('c.insta')}</small><strong dir="ltr">@{site.instagram}</strong></span>
               </a>
             )}
             {site.phone && (
-              <a className="c-tile" href={`tel:${site.phone}`}>
-                <Phone size={22} /><span><small>Phone</small><strong>{site.phone}</strong></span>
+              <a className="c-tile" href={`tel:${site.phone.replace(/\s/g, '')}`}>
+                <Phone size={22} /><span><small>{t('c.phone')}</small><strong dir="ltr">{site.phone}</strong></span>
               </a>
             )}
-            {site.hours && (
-              <div className="c-tile"><Clock size={22} /><span><small>Hours</small><strong>{site.hours}</strong></span></div>
-            )}
-            {site.address && (
-              <div className="c-tile"><MapPin size={22} /><span><small>Address</small><strong>{site.address}</strong></span></div>
-            )}
+            {site.hours && <div className="c-tile"><Clock size={22} /><span><small>{t('c.hours')}</small><strong>{site.hours}</strong></span></div>}
+            {site.address && <div className="c-tile"><MapPin size={22} /><span><small>{t('c.address')}</small><strong>{site.address}</strong></span></div>}
           </aside>
         </div>
       </div>

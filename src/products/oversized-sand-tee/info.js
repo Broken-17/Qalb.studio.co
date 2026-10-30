@@ -1,0 +1,14 @@
+export default {
+  name: "Oversized Sand Tee",
+  price: 1199,
+  mrp: 1499,
+  category: "Oversized Tees",
+  sizes: ["S", "M", "L", "XL", "XXL"],
+  colors: ["Sand"],
+  description: "Oversized tee in a warm sand tone. This is a sample listing.",
+  details: ["SAMPLE: replace this with the real fabric and fit details", "SAMPLE: replace this with real care instructions"],
+  tags: [],
+  inStock: true,
+  order: 4,
+  sample: true,
+};

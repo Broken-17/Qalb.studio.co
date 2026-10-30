@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { WhatsAppIcon } from './Icons';
 import { Check } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { useCart } from '../context/CartContext';
 import { missingSetup } from '../config/site';
+import { useI18n } from '../i18n';
 import { waLink } from '../lib/whatsapp';
 
 export function Toast() {
@@ -15,8 +15,9 @@ export function Toast() {
 }
 
 export function WhatsAppFloat() {
+  const { t } = useI18n();
   return (
-    <a className="wa-float" href={waLink('Hi! I have a question about Qalb Studio.')} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <a className="wa-float" data-tip={t('tip.whatsapp')} href={waLink('Hi! I have a question about Qalb Studio.')} target="_blank" rel="noopener noreferrer" aria-label={t('tip.whatsapp')}>
       <WhatsAppIcon size={28} />
     </a>
   );
@@ -30,33 +31,6 @@ export function DevNotice() {
   return (
     <div className="dev-notice">
       <strong>Setup still needed:</strong> {missing.join(', ')} <span>(only you see this while developing)</span>
-    </div>
-  );
-}
-
-export function Countdown({ date }) {
-  const target = new Date(date).getTime();
-  const [now, setNow] = useState(Date.now());
-  useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
-  }, []);
-  if (!date || Number.isNaN(target) || target <= now) return null;
-  const s = Math.floor((target - now) / 1000);
-  const parts = [
-    ['Days', Math.floor(s / 86400)],
-    ['Hours', Math.floor((s % 86400) / 3600)],
-    ['Mins', Math.floor((s % 3600) / 60)],
-    ['Secs', s % 60],
-  ];
-  return (
-    <div className="countdown" aria-label="Time until launch">
-      {parts.map(([l, v]) => (
-        <div key={l}>
-          <strong>{String(v).padStart(2, '0')}</strong>
-          <span>{l}</span>
-        </div>
-      ))}
     </div>
   );
 }

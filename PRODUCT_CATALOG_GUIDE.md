@@ -1,29 +1,34 @@
-# Qalb Studio product catalogue
+# Adding products to Qalb Studio
 
-Products are loaded automatically from `src/products/*/info.json` and the images in that same folder.
+Everything lives in `src/products/`. **One folder = one product.** No code changes needed.
 
-## Add a product
-1. Create `src/products/your-product-slug/`.
-2. Add `info.json` using the example below.
-3. Add images: `1.jpg` (main/front), `2.jpg` (back), `3.jpg` (details), and any additional numbered images. `cover.jpg` takes priority if present.
-4. Run `npm run dev` to preview and `npm run build` before publishing.
-
-```json
-{
-  "name": "Product name",
-  "price": 1299,
-  "mrp": 1499,
-  "category": "T-Shirts",
-  "sizes": ["S", "M", "L", "XL"],
-  "colors": ["Black"],
-  "fabric": "Add verified fabric composition",
-  "fit": "Regular fit",
-  "description": "Accurate product description.",
-  "details": ["Add verified feature", "Add care instructions"],
-  "tags": ["new"],
-  "inStock": true,
-  "order": 1
-}
+```
+src/products/
+  qalb-black-hoodie/        <- folder name = the product's web address
+    front.jpg               <- photos, named by what they show
+    back.jpg
+    side.jpg
+    model.jpg
+    detail.jpg  detail-2.jpg
+    info.js                 <- name, price, sizes, text (Hindi/Urdu optional)
+  _template/                <- copy this to start a new product (ignored by the site)
 ```
 
-Only publish accurate prices, composition, measurements, availability and claims. The UI catalogue is generated at build time, so rebuild/redeploy after changes.
+## Easiest way
+```
+npm run new-product -- "Qalb Black Hoodie"
+```
+That copies `_template` into a new folder. Drop your photos in, edit `info.js`, run `npm run dev` to check, then publish.
+
+## Photo order
+The website orders photos by their file name: `front` (or `cover`/`main`) first, then `back`, `side`/`left`/`right`, `model`/`worn`, `detail`/`close`, then anything else (`1.jpg`, `2.jpg`...) in number order. The first photo is the shop thumbnail, the second shows on hover. Labels (Front, Back, ...) are read from the file names.
+
+Big phone photos? Run `npm run optimize-images` first (shrinks anything over about 450 KB).
+
+## info.js fields
+`name, price, mrp, category, sizes, colors, description, details, tags, inStock, order`, plus optional `translations: { hi: {...}, ur: {...} }` and `sizeChart`. See `_template/info.js` for a commented example. Leave out any line you don't need.
+
+## Remove or hide
+Delete the folder. Or set `inStock: false` to show "Sold out".
+
+The catalogue is built when you publish, so rebuild/redeploy after changes. Only publish accurate prices, fabric details, measurements and claims.

@@ -78,13 +78,11 @@ Without it, the form opens the visitor's email app with the message ready.
 4. Custom domain: **Settings > Pages > Custom domain**, then add the DNS records at your domain registrar.
 
 The site uses hash links (`/#/shop`) and relative paths, so it works the same on `username.github.io/repo/` and on your own domain, with nothing to change.
-
-
 ## Qalb Studio store setup
-- Product management: see `PRODUCT_CATALOG_GUIDE.md`.
-- Before launch: see `LAUNCH_CHECKLIST.md`.
-- Customer contact form: Formspree is the recommended hosted form option. Configure `VITE_FORM_ENDPOINT` using `.env.example`; the form cannot send messages to the support inbox until a valid endpoint is configured.
-- Promo code `QALB10` is a front-end demo only. Do not rely on it for secure checkout pricing; verify and apply discounts manually until a backend validates them.
-- Shipping and returns text in Help is a draft and must be reviewed against your actual business operations before publication.
-- COD advance amount is intentionally not hard-coded because the actual amount was not provided. Confirm the amount with each customer before order confirmation.
-- Language selector records the customer's preferred language in the WhatsApp order message; it does not yet translate every page automatically.
+- **Products:** one folder per product in `src/products/` with photos plus `info.js`. See `PRODUCT_CATALOG_GUIDE.md`. Quick start: `npm run new-product -- "Product name"`.
+- **Store rules** (delivery areas, COD advance, returns, size chart): `src/config/store.js`.
+- **Contact details, Web3Forms key:** `src/config/site.js`.
+- **Promo codes:** `src/data/promos.js` (all off by default).
+- **Languages (English, Hindi, Urdu):** `src/i18n/ui.js` (site text), `story.js` (Our Story), `policies.js` (Help page). A customer's choice is remembered; Urdu switches the layout to right-to-left.
+- **Lookbook:** drop photos into `src/lookbook/`; the page appears automatically.
+- **Before launch:** see `LAUNCH_CHECKLIST.md`.

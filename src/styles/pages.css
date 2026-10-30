@@ -29,18 +29,6 @@
 .marquee-track i { font-style: normal; color: var(--ember); font-size: 0.9rem; }
 @keyframes slide { to { transform: translateX(-50%); } }
 
-/* ---------- launch ---------- */
-.launch-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 6vw, 80px); align-items: center; }
-.launch-img { position: relative; }
-.launch-img::after { content: ''; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--line); z-index: -1; }
-.launch-img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.launch-copy h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 18px; }
-.launch-copy > p { color: var(--stone); max-width: 480px; margin-bottom: 26px; }
-.countdown { display: flex; gap: 12px; margin: 0 0 28px; }
-.countdown div { min-width: 74px; padding: 12px 8px; text-align: center; border: 1px solid var(--line); border-radius: var(--radius); }
-.countdown strong { display: block; font-family: var(--display); font-weight: 400; font-size: 2rem; line-height: 1; }
-.countdown span { font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
-
 /* ---------- product grid + card ---------- */
 .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 20px; }
 .pcard { display: block; animation: rise 0.7s var(--ease) both; animation-delay: calc(var(--i, 0) * 60ms); }
@@ -229,12 +217,11 @@ details p { margin-top: 10px; color: #d8d1c5; }
   .val:nth-child(2) { border-right: 0; margin-right: 0; }
 }
 @media (max-width: 860px) {
-  .pdp, .cart-grid, .contact-grid, .launch-grid { grid-template-columns: 1fr; }
+  .pdp, .cart-grid, .contact-grid { grid-template-columns: 1fr; }
   .gallery { position: static; grid-template-columns: 1fr; }
   .thumbs { flex-direction: row; order: 2; max-height: none; overflow-x: auto; }
   .thumbs button { width: 72px; }
   .summary { position: static; }
-  .launch-img { max-width: 420px; }
   .hero { min-height: 0; }
 }
 @media (max-width: 680px) {
@@ -248,14 +235,5 @@ details p { margin-top: 10px; color: #d8d1c5; }
   .cart-line { grid-template-columns: 76px 1fr auto; gap: 12px; }
   .cl-img img { width: 76px; }
   .hero-cta .btn { width: 100%; }
-  .countdown div { min-width: 64px; }
   .pinfo h3 { font-size: 0.9rem; }
 }
-
-/* Cart preferences and promotional code */
-.promo-entry { padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.promo-entry label, .sum-row label { display:block; font-size:.82rem; margin-bottom:8px; color:var(--stone); }
-.promo-row { display:flex; gap:8px; }
-.promo-row input, #order-language { min-width:0; width:100%; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--radius); padding:11px 12px; }
-.promo-row .btn { padding:10px 14px; letter-spacing:.08em; }
-.sum-row select { background:var(--panel-2); color:var(--cream); border:1px solid var(--line); padding:8px; border-radius:var(--radius); }

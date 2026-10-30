@@ -1,0 +1,81 @@
+/* Our Story page text. **double stars** make words bold. */
+export const story = {
+  en: {
+    sub: '**QALB STUDIO** is an Indian Muslim streetwear brand bringing faith and modern street style together.',
+    c1: 'We create clothing for today’s youth, inspired by our identity and the culture we’re part of.',
+    c2t: 'Why Qalb Studio',
+    c2: [
+      'In India, there isn’t a proper brand for **Muslim streetwear**.',
+      'We started QALB STUDIO to fill that gap — clothing that connects with our identity and fits today’s street style.',
+      'We believe Muslim youth deserve streetwear that **truly represents them**.',
+    ],
+    c3t: 'What we stand for',
+    c3: [
+      'We believe every customer deserves honest service and quality they can trust.',
+      'We’ll always do our best to bring you great-quality clothing at affordable prices, with honest pricing and care in every order.',
+      'Your trust matters to us, and we’ll work hard to earn it.',
+    ],
+    c4t: 'Welcome to the Qalb family',
+    c4a: 'Qalb ({ar}) means',
+    c4b: 'heart.',
+    c4: [
+      'Qalb is more than a name. It’s a feeling we hope you’ll carry in your heart.',
+      '**To us, you’re more than just a buyer. You’re part of the Qalb family.**',
+      'Thank you for being part of Qalb.',
+    ],
+    hadith: '“The believers, in their mutual love, mercy, and compassion, are like one body…”',
+    cite: 'Al-Bukhari 6011',
+  },
+  hi: {
+    sub: '**QALB STUDIO** एक भारतीय मुस्लिम स्ट्रीटवियर ब्रांड है, जो ईमान और आधुनिक स्ट्रीट स्टाइल को साथ लाता है।',
+    c1: 'हम आज के युवाओं के लिए कपड़े बनाते हैं, जो हमारी पहचान और हमारी संस्कृति से प्रेरित हैं।',
+    c2t: 'क़ल्ब स्टूडियो क्यों',
+    c2: [
+      'भारत में **मुस्लिम स्ट्रीटवियर** के लिए कोई सही ब्रांड नहीं है।',
+      'हमने QALB STUDIO इसी कमी को भरने के लिए शुरू किया — ऐसे कपड़े जो हमारी पहचान से जुड़ें और आज के स्ट्रीट स्टाइल में फ़िट बैठें।',
+      'हमारा मानना है कि मुस्लिम युवाओं को ऐसा स्ट्रीटवियर मिलना चाहिए जो उनकी **सच्ची नुमाइंदगी** करे।',
+    ],
+    c3t: 'हम किस पर यक़ीन रखते हैं',
+    c3: [
+      'हम मानते हैं कि हर ग्राहक को ईमानदार सेवा और भरोसेमंद क्वालिटी मिलनी चाहिए।',
+      'हम हमेशा कोशिश करेंगे कि अच्छी क्वालिटी के कपड़े किफ़ायती दामों पर दें, हर ऑर्डर में ईमानदार क़ीमत और परवाह के साथ।',
+      'आपका भरोसा हमारे लिए मायने रखता है, और हम उसे कमाने के लिए मेहनत करेंगे।',
+    ],
+    c4t: 'क़ल्ब परिवार में आपका स्वागत है',
+    c4a: 'क़ल्ब ({ar}) का मतलब है',
+    c4b: 'दिल।',
+    c4: [
+      'क़ल्ब सिर्फ़ एक नाम नहीं है। यह एक एहसास है जिसे हम आपके दिल में बसाना चाहते हैं।',
+      '**हमारे लिए आप सिर्फ़ ख़रीदार नहीं हैं। आप क़ल्ब परिवार का हिस्सा हैं।**',
+      'क़ल्ब का हिस्सा बनने के लिए शुक्रिया।',
+    ],
+    hadith: '“मोमिन आपसी मोहब्बत, रहमत और हमदर्दी में एक जिस्म की तरह हैं…”',
+    cite: 'अल-बुख़ारी 6011',
+  },
+  ur: {
+    sub: '**QALB STUDIO** ایک بھارتی مسلم اسٹریٹ ویئر برانڈ ہے، جو ایمان اور جدید اسٹریٹ اسٹائل کو ایک ساتھ لاتا ہے۔',
+    c1: 'ہم آج کے نوجوانوں کے لیے لباس بناتے ہیں، جو ہماری پہچان اور ہماری ثقافت سے متاثر ہیں۔',
+    c2t: 'قلب اسٹوڈیو کیوں',
+    c2: [
+      'بھارت میں **مسلم اسٹریٹ ویئر** کے لیے کوئی مناسب برانڈ نہیں ہے۔',
+      'ہم نے QALB STUDIO اسی کمی کو پورا کرنے کے لیے شروع کیا — ایسا لباس جو ہماری پہچان سے جڑے اور آج کے اسٹریٹ اسٹائل میں فٹ بیٹھے۔',
+      'ہمارا ماننا ہے کہ مسلم نوجوانوں کو ایسا اسٹریٹ ویئر ملنا چاہیے جو ان کی **سچی نمائندگی** کرے۔',
+    ],
+    c3t: 'ہم کس بات پر یقین رکھتے ہیں',
+    c3: [
+      'ہم مانتے ہیں کہ ہر گاہک کو ایماندار خدمت اور قابلِ بھروسہ کوالٹی ملنی چاہیے۔',
+      'ہم ہمیشہ کوشش کریں گے کہ اچھی کوالٹی کے کپڑے مناسب قیمت پر دیں، ہر آرڈر میں ایماندار دام اور خیال کے ساتھ۔',
+      'آپ کا بھروسہ ہمارے لیے اہم ہے، اور ہم اسے کمانے کے لیے محنت کریں گے۔',
+    ],
+    c4t: 'قلب فیملی میں خوش آمدید',
+    c4a: 'قلب ({ar}) کا مطلب ہے',
+    c4b: 'دل۔',
+    c4: [
+      'قلب صرف ایک نام نہیں ہے۔ یہ ایک احساس ہے جسے ہم آپ کے دل میں بسانا چاہتے ہیں۔',
+      '**ہمارے لیے آپ صرف خریدار نہیں ہیں۔ آپ قلب فیملی کا حصہ ہیں۔**',
+      'قلب کا حصہ بننے کا شکریہ۔',
+    ],
+    hadith: '“مومن آپس کی محبت، رحمت اور ہمدردی میں ایک جسم کی طرح ہیں…”',
+    cite: 'صحیح بخاری 6011',
+  },
+};
