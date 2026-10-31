@@ -24,7 +24,7 @@ export const site = {
   whatsapp: '918519956010',          // country code + number, digits only
   phone: '+91 8519956010',          // shown on the website
   email: 'support@qalbstudio.co',    // customer queries land here
-  instagram: 'qalb.studio.co',       // handle only, no @
+  instagram: 'qalbstudio.co',       // handle only, no @
   address: '',                       // optional
   hours: '',                         // optional. Example: 'Mon - Sat, 10 AM - 7 PM'
 
