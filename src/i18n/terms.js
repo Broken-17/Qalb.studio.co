@@ -11,7 +11,7 @@ const en = (v) => [
   { id: 'orders', title: '1. Orders', items: [
     'An order is complete only after we confirm it with you on WhatsApp. Placing an order on the website or sending us a message is a request, not a confirmed sale.',
     'We may decline or cancel an order because of stock, a pricing error, an undeliverable address or suspected misuse. Anything you paid is refunded in full.',
-    `We currently deliver in ${v.areas} only. Orders to other places cannot be accepted yet.`,
+    'We deliver across India. We cannot accept orders to addresses outside India yet.',
   ] },
   { id: 'price', title: '2. Prices & payment', items: [
     'Prices are in Indian rupees and include applicable taxes. A confirmed order keeps the price it was confirmed at.',
@@ -55,7 +55,7 @@ const hi = (v) => [
   { id: 'orders', title: '1. ऑर्डर', items: [
     'ऑर्डर तभी पूरा माना जाता है जब हम उसे व्हाट्सऐप पर आपसे कन्फ़र्म कर लें। वेबसाइट पर ऑर्डर देना या मैसेज भेजना एक अनुरोध है, पक्की बिक्री नहीं।',
     'स्टॉक, क़ीमत की ग़लती, डिलीवर न हो सकने वाले पते या दुरुपयोग के शक पर हम ऑर्डर मना या रद्द कर सकते हैं। आपका दिया पैसा पूरा लौटाया जाएगा।',
-    `फ़िलहाल हम सिर्फ़ ${v.areas} में डिलीवर करते हैं। दूसरी जगहों के ऑर्डर अभी नहीं ले सकते।`,
+    'हम पूरे भारत में डिलीवर करते हैं। भारत के बाहर के पतों के ऑर्डर अभी नहीं ले सकते।',
   ] },
   { id: 'price', title: '2. क़ीमत और भुगतान', items: [
     'क़ीमतें भारतीय रुपये में हैं और लागू टैक्स सहित हैं। कन्फ़र्म ऑर्डर की क़ीमत वही रहती है।',
@@ -99,7 +99,7 @@ const ur = (v) => [
   { id: 'orders', title: '1. آرڈر', items: [
     'آرڈر تبھی مکمل مانا جاتا ہے جب ہم اسے واٹس ایپ پر آپ سے کنفرم کر لیں۔ ویب سائٹ پر آرڈر دینا یا پیغام بھیجنا ایک درخواست ہے، پکی فروخت نہیں۔',
     'اسٹاک، قیمت کی غلطی، ڈیلیور نہ ہو سکنے والے پتے یا غلط استعمال کے شک پر ہم آرڈر منع یا منسوخ کر سکتے ہیں۔ آپ کی دی ہوئی رقم پوری لوٹائی جائے گی۔',
-    `فی الحال ہم صرف ${v.areas} میں ڈیلیور کرتے ہیں۔ دوسری جگہوں کے آرڈر ابھی نہیں لے سکتے۔`,
+    'ہم پورے بھارت میں ڈیلیور کرتے ہیں۔ بھارت سے باہر کے پتوں کے آرڈر ابھی نہیں لے سکتے۔',
   ] },
   { id: 'price', title: '2. قیمت اور ادائیگی', items: [
     'قیمتیں بھارتی روپوں میں ہیں اور قابلِ اطلاق ٹیکس شامل ہیں۔ کنفرم آرڈر کی قیمت وہی رہتی ہے۔',

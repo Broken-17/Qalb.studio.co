@@ -80,7 +80,7 @@ const en = (v) => ({
     {
       id: 'shipping', title: 'Shipping & delivery',
       items: [
-        `We currently deliver in ${v.areas}. We plan to add more areas, and this page will change when we do.`,
+        'We deliver across India. Remote or hard-to-reach pincodes can take a little longer.',
         `Orders are packed and handed to the courier within ${v.processing} working days of confirmation.`,
         `Delivery time after dispatch: ${v.areaDays}.`,
         v.shipText,
@@ -163,7 +163,7 @@ const hi = (v) => ({
     {
       id: 'shipping', title: 'शिपिंग और डिलीवरी',
       items: [
-        `फ़िलहाल हम ${v.areas} में डिलीवर करते हैं। आगे और इलाक़े जोड़ेंगे, तब यह पेज बदल जाएगा।`,
+        'हम पूरे भारत में डिलीवर करते हैं। दूर-दराज़ के पिनकोड में थोड़ा ज़्यादा समय लग सकता है।',
         `ऑर्डर कन्फ़र्म होने के ${v.processing} कार्य दिवस के भीतर पैक करके कूरियर को सौंप दिया जाता है।`,
         `डिस्पैच के बाद डिलीवरी का समय: ${v.areaDays}।`,
         v.shipText,
@@ -246,7 +246,7 @@ const ur = (v) => ({
     {
       id: 'shipping', title: 'شپنگ اور ڈیلیوری',
       items: [
-        `فی الحال ہم ${v.areas} میں ڈیلیور کرتے ہیں۔ آگے مزید علاقے شامل کریں گے، تب یہ صفحہ بدل جائے گا۔`,
+        'ہم پورے بھارت میں ڈیلیور کرتے ہیں۔ دور دراز کے پن کوڈ میں تھوڑا زیادہ وقت لگ سکتا ہے۔',
         `آرڈر کنفرم ہونے کے ${v.processing} کام کے دنوں کے اندر پیک کر کے کوریئر کو دے دیا جاتا ہے۔`,
         `روانگی کے بعد ڈیلیوری کا وقت: ${v.areaDays}۔`,
         v.shipText,

@@ -9,10 +9,7 @@ export const store = {
   // A customer's pincode decides the area. Add a new area (or change the days) any time.
   // Pincodes are matched by their first digits (prefixes) or an inclusive range.
   areas: [
-    { id: 'vizag', name: 'Visakhapatnam', hi: 'विशाखापट्टनम', ur: 'وشاکھاپٹنم', prefixes: ['530', '531'], days: '3-7' },
-    { id: 'ap', name: 'Andhra Pradesh', hi: 'आंध्र प्रदेश', ur: 'آندھرا پردیش', range: [515000, 535999], days: '3-7' },
-    // To open another state later, add e.g.:
-    // { id: 'ts', name: 'Telangana', range: [500000, 509999], days: '4-7' },
+    { id: 'india', name: 'India', hi: 'भारत', ur: 'بھارت', prefixes: ['1', '2', '3', '4', '5', '6', '7', '8'], days: '3-7' },
   ],
   processingDays: '1-2', // time to pack and hand over to the courier. CONFIRM
 
